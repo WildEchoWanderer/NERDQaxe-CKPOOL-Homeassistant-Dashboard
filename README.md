@@ -1,28 +1,27 @@
-# BitAxe Mining Dashboard for Home Assistant
+# NerdQaxe & CKPool Home Assistant Dashboard
 
-Welcome to the BitAxe Mining Dashboard project! The BitAxe open-source mining movement has revolutionized small-scale Bitcoin mining, making it accessible and fun. While the BitAxe hardware and firmware are fantastic, monitoring multiple miners can be challenging. This dashboard brings all your BitAxe miners and Satoshi Radio pool stats together in one clean, informative interface.
+This is a customized Home Assistant dashboard configuration for monitoring a BitAxe-compatible miner (specifically NerdQaxe) in combination with CKPool (eusolo).
+It is based on the original BitAxe dashboard for Satoshi Radio, but has been heavily modified to correctly query and display solo miner stats and total pool stats from CKPool.
 
-<img width="2303" alt="image" src="https://github.com/user-attachments/assets/4543b773-ac2b-4f9a-9dc0-836c81ff06b6">
-<img width="891" height="891" alt="shovel_btc_pixelart" src="https://github.com/user-attachments/assets/ec0fd162-f449-4603-838d-dc4182e53e1b" />
-
+Vorläufiges Bild:
+<img width="1364" height="1128" alt="image" src="https://github.com/user-attachments/assets/3b6bc6ac-b040-41a3-b88f-1770987bd793" />
 
 ## Features
-
-- Real-time monitoring of multiple BitAxe miners
-- Total and per-miner hashrate tracking
-- Power consumption and efficiency metrics
-- Temperature monitoring with overheat detection
-- Integration with Satoshi Radio Mining Pool stats
-- Beautiful graphs showing historical performance
-- Pool comparison showing your contribution to total pool hashrate
+- Miner Stats: Displays hashrate (GH/s), power consumption (W), temperature (°C), and fan speed (%) of your NerdQaxe miner
+- Efficiency Calculation: Calculates your miner's efficiency (GH/W)
+- CKPool Solo Stats: Shows your personal 1-hour hashrate on CKPool (in TH/s)
+- CKPool Total Stats: Displays the total hashrate (1h and 7d) of the entire CKPool, as well as the number of users and workers
+- Summaries: Counts the number of miners that are online or overheated
+- Graphs: Visualizes your live hashrate, your pool hashrate, and the total pool hashrate over time (requires mini-graph-card)
 
 ## Prerequisites
 
 ### Hardware & Network
-- One or more BitAxe miners (Nerdaxe, Supra, Gamma, etc.)
-- Home Assistant installation
-- BitAxe miners must be on the same network as your Home Assistant server
-- Mining on Satoshi Radio Pool (if you want to see pool stats)
+- A running Home Assistant instance
+- HACS (Home Assistant Community Store) must be installed
+- The mini-graph-card must be installed via HACS
+- A BitAxe / NerdQaxe miner on the same network with a known, static IP address
+- Your CKPool wallet address
 
 ### Software
 - Home Assistant Core 2023.8.0 or newer
@@ -33,41 +32,23 @@ Welcome to the BitAxe Mining Dashboard project! The BitAxe open-source mining mo
 ## ⚠️ Important Notes
 - **BACKUP YOUR CONFIG**: Always backup your Home Assistant configuration before making changes
 - **NETWORK ACCESS**: Ensure your BitAxe miners have static IP addresses or DHCP reservations
-- **POOL SPECIFIC**: This dashboard is designed specifically for the Satoshi Radio Mining Pool
+- **POOL SPECIFIC**: This dashboard is designed specifically for CKpool
 
 ## Installation Steps
 
-### 1. Prepare Your Environment
-1. Backup your Home Assistant configuration
-2. Install HACS if not already installed
-3. Install required custom cards through HACS
-4. Note down your BitAxe miners' IP addresses
-5. Have your Satoshi Radio Pool user (wallet address) ready
-
-### 2. Add Configuration Files
-1. Add to your `secrets.yaml`:
-   - Copy content from [secrets.yaml](./secrets.yaml)
-   - Replace example values with your actual IPs and wallet address
-   
-2. Modify your `configuration.yaml`:
-   - Copy content from [configuration.yaml](./configuration.yaml)
-   - Add to your existing config (don't replace everything!)
-
-3. Create `bitaxe.yaml`:
-   - Copy the complete file to your config directory
-   - No modifications needed unless adding/removing miners
-
-### 3. Create the Dashboard
-1. Navigate to Settings -> Dashboards in Home Assistant
-2. Create new dashboard named "BitAxe Mining"
-3. Open the Raw Configuration Editor
-4. Copy content from [dashboard.yaml](./dashboard.yaml)
-5. Save and exit
-
-### 4. Finalize
-1. Check your configuration in Home Assistant
-2. Restart Home Assistant
-3. Access your new dashboard!
+1. Install HACS Card: Go to HACS -> Frontend and install the mini-graph-card.
+2. Copy Files:
+   -  Copy bitaxe.yaml to your /config directory.
+   -  Copy dashboard.yaml (or rename it, e.g., mining_view.yaml).
+3. Merge Configurations:
+   - secrets.yaml: Add the entries from this secrets.yaml to your existing /config/secrets.yaml. Edit it and enter your miner IP (nerdqaxe_ip) and your wallet address (wallet_address and ckpool_solo_resource).
+   - configuration.yaml: Add the entire contents of this configuration.yaml to your existing /config/configuration.yaml. **DO NOT REPLACE!** Ensure you only define rest: and sensor:/template: once (or merge the entries).
+4. Check Configuration: In Home Assistant, go to Developer Tools -> Check Configuration and ensure no errors are shown.
+5. Restart Home Assistant.
+6. Set up the Dashboard:
+   - Open a dashboard, click "Edit".
+   - Add a new "Manual" card and paste the contents of dashboard.yaml into it.
+   - Alternatively: If you are using dashboard.yaml as a view file, include it in your Lovelace setup.
 
 ## Customization
 
@@ -105,18 +86,15 @@ Welcome to the BitAxe Mining Dashboard project! The BitAxe open-source mining mo
 ## Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-## Support
-- For dashboard issues: Open an issue in this repository
-- For pool-related questions: [Satoshi Radio Pool](https://pool.satoshiradio.nl)
-
 ## License
 [MIT](./LICENSE)
 
 ## Acknowledgments
+- CKpool - For a amazing Anonymous Solo Pool: https://eusolo.ckpool.org/
+- Thanks to the original Repo Owner: https://github.com/satoshiradio/bitaxe-HAS-dashboard
 - [BitAxe Community and Project](https://bitaxe.org/) - For creating this amazing open-source miner
 - Satoshi Radio Pool Community - For providing an excellent mining pool and the first draft of the dashboard
 - Home Assistant Community - For the platform and support
 - Bart Mol (https://x.com/Bart_Mol) - For the initial dashboard development
 
----
-Made with ❤️ by the BitAxe Community
+<img width="891" height="891" alt="shovel_btc_pixelart" src="https://github.com/user-attachments/assets/ec0fd162-f449-4603-838d-dc4182e53e1b" />
