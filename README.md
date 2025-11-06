@@ -3,7 +3,8 @@
 Welcome to the BitAxe Mining Dashboard project! The BitAxe open-source mining movement has revolutionized small-scale Bitcoin mining, making it accessible and fun. While the BitAxe hardware and firmware are fantastic, monitoring multiple miners can be challenging. This dashboard brings all your BitAxe miners and Satoshi Radio pool stats together in one clean, informative interface.
 
 <img width="2303" alt="image" src="https://github.com/user-attachments/assets/4543b773-ac2b-4f9a-9dc0-836c81ff06b6">
-<img width="992" height="1056" alt="shovel_btc_pixelart" src="https://github.com/user-attachments/assets/7ffa1ce5-bd25-49b9-8fdc-ed2c5382c10d" />
+<img width="891" height="891" alt="shovel_btc_pixelart" src="https://github.com/user-attachments/assets/ec0fd162-f449-4603-838d-dc4182e53e1b" />
+
 
 ## Features
 
