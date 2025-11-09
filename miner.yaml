@@ -1,0 +1,789 @@
+#########################################################################
+# Bitaxe & Nerdqaxe Mining Dashboard Configuration for Home Assistant
+# This is part of a complete dashboard setup
+# For full documentation and installation instructions:
+# 👉 See: https://github.com/WildEchoWanderer/bitaxe_homeassistant_dashboard
+#########################################################################
+# To add/remove miners: Copy/delete a miner section and update template sensors
+#########################################################################
+
+#Nerdqaxe
+- resource: !secret nerdqaxe_ip
+  scan_interval: 30
+  authentication: basic
+  sensor:
+    - name: "NerdQAxe Power"
+      unique_id: nerdqaxe_power
+      device_class: power
+      unit_of_measurement: "W"
+      value_template: "{{ value_json.power | float(0) | round(2) }}"
+
+    - name: "NerdQAxe Voltage"
+      unique_id: nerdqaxe_voltage
+      device_class: voltage
+      unit_of_measurement: "V"
+      value_template: "{{ (value_json.voltage/1000) | float(0) | round(2) }}"
+
+    - name: "NerdQAxe Current"
+      unique_id: nerdqaxe_current
+      device_class: current
+      unit_of_measurement: "A"
+      value_template: "{{ (value_json.current/1000) | float(0) | round(2) }}"
+
+    - name: "NerdQAxe Temperature"
+      unique_id: nerdqaxe_temperature
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.temp | int(0) }}"
+
+    - name: "NerdQAxe VR Temp"
+      unique_id: nerdqaxe_vr_temp
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.vrTemp | int(0) }}"
+
+    - name: "NerdQAxe Hashrate"
+      unique_id: nerdqaxe_hashrate
+      unit_of_measurement: "TH/s"
+      value_template: "{{ (value_json.hashRate / 1000) | float(0) | round(3) }}"
+
+    - name: "NerdQAxe Best Difficulty"
+      unique_id: nerdqaxe_best_diff
+      value_template: "{{ value_json.bestDiff[0:-1] | float(0) }}"
+
+    - name: "NerdQAxe Best Session Difficulty"
+      unique_id: nerdqaxe_best_session_diff
+      value_template: "{{ value_json.bestSessionDiff[0:-1] | float(0) }}"
+
+    - name: "NerdQAxe Frequency"
+      unique_id: nerdqaxe_frequency
+      device_class: frequency
+      unit_of_measurement: "Hz"
+      value_template: "{{ value_json.frequency | int(0) }}"
+
+    - name: "NerdQAxe Shares Accepted"
+      unique_id: nerdqaxe_shares_accepted
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesAccepted | int(0) }}"
+
+    - name: "NerdQAxe Shares Rejected"
+      unique_id: nerdqaxe_shares_rejected
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesRejected | int(0) }}"
+
+    - name: "NerdQAxe Uptime"
+      unique_id: nerdqaxe_uptime
+      device_class: duration
+      unit_of_measurement: "s"
+      value_template: "{{ value_json.uptimeSeconds | int(0) }}"
+
+    - name: "NerdQAxe Fan Speed"
+      unique_id: nerdqaxe_fan_speed
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.fanspeed | int(0) }}"
+
+    - name: "NerdQAxe Fan RPM"
+      unique_id: nerdqaxe_fan_rpm
+      unit_of_measurement: "RPM"
+      value_template: "{{ value_json.fanrpm | int(0) }}"
+
+    - name: "NerdQAxe Host IP"
+      unique_id: nerdqaxe_host_ip
+      value_template: "{{ value_json.hostip }}"
+
+    - name: "NerdQAxe MAC"
+      unique_id: nerdqaxe_mac
+      value_template: "{{ value_json.macAddr }}"
+
+    - name: "NerdQAxe WiFi SSID"
+      unique_id: nerdqaxe_wifi_ssid
+      value_template: "{{ value_json.ssid }}"
+
+    - name: "NerdQAxe WiFi RSSI"
+      unique_id: nerdqaxe_wifi_rssi
+      unit_of_measurement: "dBm"
+      value_template: "{{ value_json.wifiRSSI | int(0) }}"
+
+    - name: "NerdQAxe Core Voltage Actual"
+      unique_id: nerdqaxe_core_voltage_actual
+      unit_of_measurement: "mV"
+      value_template: "{{ value_json.coreVoltageActual | int(0) }}"
+
+    - name: "NerdQAxe Using Fallback Stratum"
+      unique_id: nerdqaxe_using_fallback_stratum
+      value_template: "{{ value_json.isUsingFallbackStratum }}"
+
+    - name: "NerdQAxe Stratum Connected"
+      unique_id: nerdqaxe_stratum_connected
+      value_template: "{{ value_json.isStratumConnected }}"
+
+    - name: "NerdQAxe Found Blocks"
+      unique_id: nerdqaxe_found_blocks
+      unit_of_measurement: "blocks"
+      value_template: "{{ value_json.foundBlocks | int(0) }}"
+
+    - name: "NerdQAxe Stratum Difficulty"
+      unique_id: nerdqaxe_stratum_difficulty
+      value_template: "{{ value_json.stratumDifficulty | int(0) }}"
+      
+    - name: "NerdQAxe Version"
+      unique_id: nerdqaxe_version
+      value_template: "{{ value_json.version }}"
+
+# NerdAxe
+- resource: !secret bitaxe_nerdaxe_ip
+  scan_interval: 30
+  authentication: basic
+  sensor:
+    - name: "NerdAxe Power"
+      unique_id: nerdaxe_power
+      device_class: power
+      unit_of_measurement: "W"
+      value_template: "{{ value_json.power | float(0) | round(2) }}"
+
+    - name: "NerdAxe Voltage"
+      unique_id: nerdaxe_voltage
+      device_class: voltage
+      unit_of_measurement: "V"
+      value_template: "{{ (value_json.voltage/1000) | float(0) | round(2) }}"
+
+    - name: "NerdAxe Current"
+      unique_id: nerdaxe_current
+      device_class: current
+      unit_of_measurement: "A"
+      value_template: "{{ (value_json.current/1000) | float(0) | round(2) }}"
+
+    - name: "NerdAxe Temperature"
+      unique_id: nerdaxe_temperature
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.temp | int(0) }}"
+
+    - name: "NerdAxe Hashrate"
+      unique_id: nerdaxe_hashrate
+      unit_of_measurement: "GH/s"
+      value_template: "{{ value_json.hashRate | float(0) | round(2) }}"
+
+    - name: "NerdAxe Best Difficulty"
+      unique_id: nerdaxe_best_diff
+      value_template: "{{ value_json.bestDiff[0:-1] | float(0) }}"
+
+    - name: "NerdAxe Best Session Difficulty"
+      unique_id: nerdaxe_best_session_diff
+      value_template: "{{ value_json.bestSessionDiff[0:-1] | float(0) }}"
+
+    - name: "NerdAxe Frequency"
+      unique_id: nerdaxe_frequency
+      device_class: frequency
+      unit_of_measurement: "Hz"
+      value_template: "{{ value_json.frequency | int(0) }}"
+
+    - name: "NerdAxe Shares Accepted"
+      unique_id: nerdaxe_shares_accepted
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesAccepted | int(0) }}"
+
+    - name: "NerdAxe Shares Rejected"
+      unique_id: nerdaxe_shares_rejected
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesRejected | int(0) }}"
+
+    - name: "NerdAxe Uptime"
+      unique_id: nerdaxe_uptime
+      device_class: duration
+      unit_of_measurement: "s"
+      value_template: "{{ value_json.uptimeSeconds | int(0) }}"
+
+    - name: "NerdAxe Fan Speed"
+      unique_id: nerdaxe_fan_speed
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.fanspeed | int(0) }}"
+
+    - name: "NerdAxe Fan RPM"
+      unique_id: nerdaxe_fan_rpm
+      unit_of_measurement: "RPM"
+      value_template: "{{ value_json.fanrpm | int(0) }}"
+
+    - name: "NerdAxe Host IP"
+      unique_id: nerdaxe_host_ip
+      value_template: "{{ value_json.hostip }}"
+
+    - name: "NerdAxe MAC"
+      unique_id: nerdaxe_mac
+      value_template: "{{ value_json.macAddr }}"
+
+    - name: "NerdAxe WiFi SSID"
+      unique_id: nerdaxe_wifi_ssid
+      value_template: "{{ value_json.ssid }}"
+
+    - name: "NerdAxe WiFi RSSI"
+      unique_id: nerdaxe_wifi_rssi
+      unit_of_measurement: "dBm"
+      value_template: "{{ value_json.wifiRSSI | int(0) }}"
+
+    - name: "NerdAxe Core Voltage Actual"
+      unique_id: nerdaxe_core_voltage_actual
+      unit_of_measurement: "mV"
+      value_template: "{{ value_json.coreVoltageActual | int(0) }}"
+
+    - name: "NerdAxe Using Fallback Stratum"
+      unique_id: nerdaxe_using_fallback_stratum
+      value_template: "{{ value_json.isUsingFallbackStratum }}"
+
+    - name: "NerdAxe Stratum Connected"
+      unique_id: nerdaxe_stratum_connected
+      value_template: "{{ value_json.isStratumConnected }}"
+
+    - name: "NerdAxe Found Blocks"
+      unique_id: nerdaxe_found_blocks
+      unit_of_measurement: "blocks"
+      value_template: "{{ value_json.foundBlocks | int(0) }}"
+
+    - name: "NerdAxe Stratum Difficulty"
+      unique_id: nerdaxe_stratum_difficulty
+      value_template: "{{ value_json.stratumDifficulty | int(0) }}"
+
+    - name: "NerdAxe Version"
+      unique_id: nerdaxe_version
+      value_template: "{{ value_json.version }}"
+
+# Supra
+- resource: !secret bitaxe_supra_ip
+  scan_interval: 30
+  authentication: basic
+  sensor:
+    - name: "Supra Power"
+      unique_id: supra_power
+      device_class: power
+      unit_of_measurement: "W"
+      value_template: "{{ value_json.power | float(0) | round(2) }}"
+
+    - name: "Supra Voltage"
+      unique_id: supra_voltage
+      device_class: voltage
+      unit_of_measurement: "V"
+      value_template: "{{ (value_json.voltage/1000) | float(0) | round(2) }}"
+
+    - name: "Supra Current"
+      unique_id: supra_current
+      device_class: current
+      unit_of_measurement: "A"
+      value_template: "{{ (value_json.current/1000) | float(0) | round(2) }}"
+
+    - name: "Supra Temperature"
+      unique_id: supra_temperature
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.temp | int(0) }}"
+
+    - name: "Supra Hashrate"
+      unique_id: supra_hashrate
+      unit_of_measurement: "GH/s"
+      value_template: "{{ value_json.hashRate | float(0) | round(2) }}"
+
+    - name: "Supra Best Difficulty"
+      unique_id: supra_best_diff
+      value_template: "{{ value_json.bestDiff[0:-1] | float(0) }}"
+
+    - name: "Supra Best Session Difficulty"
+      unique_id: supra_best_session_diff
+      value_template: "{{ value_json.bestSessionDiff[0:-1] | float(0) }}"
+
+    - name: "Supra Frequency"
+      unique_id: supra_frequency
+      device_class: frequency
+      unit_of_measurement: "Hz"
+      value_template: "{{ value_json.frequency | int(0) }}"
+
+    - name: "Supra Shares Accepted"
+      unique_id: supra_shares_accepted
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesAccepted | int(0) }}"
+
+    - name: "Supra Shares Rejected"
+      unique_id: supra_shares_rejected
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesRejected | int(0) }}"
+
+    - name: "Supra Uptime"
+      unique_id: supra_uptime
+      device_class: duration
+      unit_of_measurement: "s"
+      value_template: "{{ value_json.uptimeSeconds | int(0) }}"
+
+    - name: "Supra Fan Speed"
+      unique_id: supra_fan_speed
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.fanspeed | int(0) }}"
+
+    - name: "Supra Fan RPM"
+      unique_id: supra_fan_rpm
+      unit_of_measurement: "RPM"
+      value_template: "{{ value_json.fanrpm | int(0) }}"
+
+    - name: "Supra Host IP"
+      unique_id: supra_host_ip
+      value_template: "{{ value_json.hostip }}"
+
+    - name: "Supra MAC"
+      unique_id: supra_mac
+      value_template: "{{ value_json.macAddr }}"
+
+    - name: "Supra WiFi SSID"
+      unique_id: supra_wifi_ssid
+      value_template: "{{ value_json.ssid }}"
+
+    - name: "Supra WiFi RSSI"
+      unique_id: supra_wifi_rssi
+      unit_of_measurement: "dBm"
+      value_template: "{{ value_json.wifiRSSI | int(0) }}"
+
+    - name: "Supra Core Voltage Actual"
+      unique_id: supra_core_voltage_actual
+      unit_of_measurement: "mV"
+      value_template: "{{ value_json.coreVoltageActual | int(0) }}"
+
+    - name: "Supra Using Fallback Stratum"
+      unique_id: supra_using_fallback_stratum
+      value_template: "{{ value_json.isUsingFallbackStratum }}"
+
+    - name: "Supra Stratum Connected"
+      unique_id: supra_stratum_connected
+      value_template: "{{ value_json.isStratumConnected }}"
+
+    - name: "Supra Found Blocks"
+      unique_id: supra_found_blocks
+      unit_of_measurement: "blocks"
+      value_template: "{{ value_json.foundBlocks | int(0) }}"
+
+    - name: "Supra Stratum Difficulty"
+      unique_id: supra_stratum_difficulty
+      value_template: "{{ value_json.stratumDifficulty | int(0) }}"
+
+    - name: "Supra Version"
+      unique_id: supra_version
+      value_template: "{{ value_json.version }}"
+
+# Gamma
+- resource: !secret bitaxe_gamma_ip
+  scan_interval: 30
+  authentication: basic
+  sensor:
+    - name: "Gamma Power"
+      unique_id: gamma_power
+      device_class: power
+      unit_of_measurement: "W"
+      value_template: "{{ value_json.power | float(0) | round(2) }}"
+
+    - name: "Gamma Voltage"
+      unique_id: gamma_voltage
+      device_class: voltage
+      unit_of_measurement: "V"
+      value_template: "{{ (value_json.voltage/1000) | float(0) | round(2) }}"
+
+    - name: "Gamma Current"
+      unique_id: gamma_current
+      device_class: current
+      unit_of_measurement: "A"
+      value_template: "{{ (value_json.current/1000) | float(0) | round(2) }}"
+
+    - name: "Gamma Temperature"
+      unique_id: gamma_temperature
+      device_class: temperature
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.temp | int(0) }}"
+
+    - name: "Gamma Hashrate"
+      unique_id: gamma_hashrate
+      unit_of_measurement: "GH/s"
+      value_template: "{{ value_json.hashRate | float(0) | round(2) }}"
+
+    - name: "Gamma Best Difficulty"
+      unique_id: gamma_best_diff
+      value_template: "{{ value_json.bestDiff[0:-1] | float(0) }}"
+
+    - name: "Gamma Best Session Difficulty"
+      unique_id: gamma_best_session_diff
+      value_template: "{{ value_json.bestSessionDiff[0:-1] | float(0) }}"
+
+    - name: "Gamma Frequency"
+      unique_id: gamma_frequency
+      device_class: frequency
+      unit_of_measurement: "Hz"
+      value_template: "{{ value_json.frequency | int(0) }}"
+
+    - name: "Gamma Shares Accepted"
+      unique_id: gamma_shares_accepted
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesAccepted | int(0) }}"
+
+    - name: "Gamma Shares Rejected"
+      unique_id: gamma_shares_rejected
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.sharesRejected | int(0) }}"
+
+    - name: "Gamma Uptime"
+      unique_id: gamma_uptime
+      device_class: duration
+      unit_of_measurement: "s"
+      value_template: "{{ value_json.uptimeSeconds | int(0) }}"
+
+    - name: "Gamma Fan Speed"
+      unique_id: gamma_fan_speed
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.fanspeed | int(0) }}"
+
+    - name: "Gamma Fan RPM"
+      unique_id: gamma_fan_rpm
+      unit_of_measurement: "RPM"
+      value_template: "{{ value_json.fanrpm | int(0) }}"
+
+    - name: "Gamma Host IP"
+      unique_id: gamma_host_ip
+      value_template: "{{ value_json.hostip }}"
+
+    - name: "Gamma MAC"
+      unique_id: gamma_mac
+      value_template: "{{ value_json.macAddr }}"
+
+    - name: "Gamma WiFi SSID"
+      unique_id: gamma_wifi_ssid
+      value_template: "{{ value_json.ssid }}"
+
+    - name: "Gamma WiFi RSSI"
+      unique_id: gamma_wifi_rssi
+      unit_of_measurement: "dBm"
+      value_template: "{{ value_json.wifiRSSI | int(0) }}"
+
+    - name: "Gamma Core Voltage Actual"
+      unique_id: gamma_core_voltage_actual
+      unit_of_measurement: "mV"
+      value_template: "{{ value_json.coreVoltageActual | int(0) }}"
+
+    - name: "Gamma Using Fallback Stratum"
+      unique_id: gamma_using_fallback_stratum
+      value_template: "{{ value_json.isUsingFallbackStratum }}"
+
+    - name: "Gamma Stratum Connected"
+      unique_id: gamma_stratum_connected
+      value_template: "{{ value_json.isStratumConnected }}"
+
+    - name: "Gamma Found Blocks"
+      unique_id: gamma_found_blocks
+      unit_of_measurement: "blocks"
+      value_template: "{{ value_json.foundBlocks | int(0) }}"
+
+    - name: "Gamma Stratum Difficulty"
+      unique_id: gamma_stratum_difficulty
+      value_template: "{{ value_json.stratumDifficulty | int(0) }}"
+
+    - name: "Gamma Version"
+      unique_id: gamma_version
+      value_template: "{{ value_json.version }}"
+
+#CKPool User Stats
+- resource: !secret ckpool_resource
+  scan_interval: 10
+  method: GET
+  headers:
+    User-Agent: Home Assistant
+    Accept: application/json
+  sensor:
+    - name: "CKPool User Stats"
+      unique_id: ckpool_user_stats
+      json_attributes_path: "$"
+      json_attributes:
+        - hashrate1m
+        - hashrate5m
+        - hashrate1hr
+        - hashrate1d
+        - hashrate7d
+        - lastshare
+        - workers
+        - shares
+        - bestshare
+        - bestever
+        - authorised
+        - worker
+      value_template: "{{ value_json.hashrate1d }}"
+
+    - name: "CKPool User Hashrate 1m"
+      unique_id: ckpool_user_hashrate_1m
+      unit_of_measurement: "TH/s"
+      value_template: "{{ (value_json.hashrate1m.split('T')[0] | float(0)) | round(2) }}"
+
+    - name: "CKPool User Hashrate 5m"
+      unique_id: ckpool_user_hashrate_5m
+      unit_of_measurement: "TH/s"
+      value_template: "{{ (value_json.hashrate5m.split('T')[0] | float(0)) | round(2) }}"
+
+    - name: "CKPool User Hashrate 1hr"
+      unique_id: ckpool_user_hashrate_1hr
+      unit_of_measurement: "TH/s"
+      value_template: "{{ (value_json.hashrate1hr.split('T')[0] | float(0)) | round(2) }}"
+
+    - name: "CKPool User Hashrate 1d"
+      unique_id: ckpool_user_hashrate_1d
+      unit_of_measurement: "TH/s"
+      value_template: "{{ (value_json.hashrate1d.split('T')[0] | float(0)) | round(2) }}"
+
+    - name: "CKPool User Hashrate 7d"
+      unique_id: ckpool_user_hashrate_7d
+      unit_of_measurement: "TH/s"
+      value_template: "{{ (value_json.hashrate7d.split('T')[0] | float(0)) | round(2) }}"
+
+    - name: "CKPool User Lastshare"
+      unique_id: ckpool_user_lastshare
+      value_template: "{{ value_json.lastshare | int(0) }}"
+
+    - name: "CKPool User Workers"
+      unique_id: ckpool_user_workers
+      value_template: "{{ value_json.workers | int(0) }}"
+
+    - name: "CKPool User Shares"
+      unique_id: ckpool_user_shares
+      value_template: "{{ value_json.shares | int(0) }}"
+
+    - name: "CKPool User Bestshare"
+      unique_id: ckpool_user_bestshare
+      value_template: "{{ value_json.bestshare | float(0) | round(3) }}"
+
+    - name: "CKPool User Bestever Share"
+      unique_id: ckpool_user_bestever_share
+      value_template: "{{ value_json.bestever | int(0) }}"
+
+    - name: "CKPool User Authorised"
+      unique_id: ckpool_user_authorised
+      value_template: "{{ value_json.authorised | int(0) }}"
+
+    - name: "CKPool User Worker Attributes"
+      unique_id: ckpool_user_worker_attrs
+      json_attributes_path: "$.worker[0]"
+      json_attributes:
+        - workername
+        - hashrate1m
+        - hashrate5m
+        - hashrate1hr
+        - hashrate1d
+        - hashrate7d
+        - lastshare
+        - shares
+        - bestshare
+        - bestever
+      value_template: "{{ value_json.worker[0].workername }}"
+
+#CKPool Stats
+- resource: "https://eusolo.ckpool.org/pool/pool.status"
+  scan_interval: 60
+  method: GET
+  headers:
+    User-Agent: Home Assistant
+    Accept: application/json
+  sensor:
+    - name: "CKPool Workers"
+      unique_id: ckpool_workers
+      value_template: >-
+        {% set lines = value.splitlines() %}
+        {% set p1 = (lines[0] | from_json) if lines|length > 0 else {} %}
+        {{ p1.Workers | int(0) }}
+
+    - name: "CKPool Hashrate 1m"
+      unique_id: ckpool_hashrate_1m
+      unit_of_measurement: "PH/s"
+      value_template: >-
+        {% set lines = value.splitlines() %}
+        {% set p2 = (lines[1] | from_json) if lines|length > 1 else {} %}
+        {{ (p2.hashrate1m.split('P')[0] | float(0)) | round(2) }}
+
+    - name: "CKPool Hashrate 5m"
+      unique_id: ckpool_hashrate_5m
+      unit_of_measurement: "PH/s"
+      value_template: >-
+        {% set lines = value.splitlines() %}
+        {% set p2 = (lines[1] | from_json) if lines|length > 1 else {} %}
+        {{ (p2.hashrate5m.split('P')[0] | float(0)) | round(2) }}
+
+    - name: "CKPool Hashrate 1hr"
+      unique_id: ckpool_hashrate_1hr
+      unit_of_measurement: "PH/s"
+      value_template: >-
+        {% set lines = value.splitlines() %}
+        {% set p2 = (lines[1] | from_json) if lines|length > 1 else {} %}
+        {{ (p2.hashrate1hr.split('P')[0] | float(0)) | round(2) }}
+
+    - name: "CKPool Hashrate 1d"
+      unique_id: ckpool_hashrate_1d
+      unit_of_measurement: "PH/s"
+      value_template: >-
+        {% set lines = value.splitlines() %}
+        {% set p2 = (lines[1] | from_json) if lines|length > 1 else {} %}
+        {{ (p2.hashrate1d.split('P')[0] | float(0)) | round(2) }}
+
+    - name: "CKPool Hashrate 7d"
+      unique_id: ckpool_hashrate_7d
+      unit_of_measurement: "PH/s"
+      value_template: >-
+        {% set lines = value.splitlines() %}
+        {% set p2 = (lines[1] | from_json) if lines|length > 1 else {} %}
+        {{ (p2.hashrate7d.split('P')[0] | float(0)) | round(2) }}
+
+    - name: "CKPool Difficulty"
+      unique_id: ckpool_difficulty
+      value_template: >-
+        {% set lines = value.splitlines() %}
+        {% set p3 = (lines[2] | from_json) if lines|length > 2 else {} %}
+        {{ p3.diff | float(0) }}
+
+# Satoshiradio Pool User Stats
+- resource: !secret srpool_resource
+  scan_interval: 30
+  method: GET
+  headers:
+    User-Agent: Home Assistant
+    Accept: application/json
+  sensor:
+    - name: "Satoshiradio Pool User Stats"
+      unique_id: sr_pool_stats
+      json_attributes_path: "$"
+      json_attributes:
+        - hashrate1m
+        - hashrate5m
+        - hashrate1hr
+        - hashrate1d
+        - hashrate7d
+        - lastshare
+        - shares
+        - bestshare
+        - bestever
+        - authorised
+        - worker
+      value_template: "{{ value_json.hashrate1d }}"
+
+    - name: "Satoshiradio Pool User Stats Hashrate 1m"
+      unique_id: satoshiradio_user_hashrate_1m
+      unit_of_measurement: "GH/s"
+      value_template: "{{ (value_json.hashrate1m.split('T')[0] | float(0) * 1000) | round(2) }}"
+
+    - name: "Satoshiradio Pool User Stats Hashrat e5m"
+      unique_id: satoshiradio_user_hashrate_5m
+      unit_of_measurement: "GH/s"
+      value_template: "{{ (value_json.hashrate5m.split('T')[0] | float(0) * 1000) | round(2) }}"
+
+    - name: "Satoshiradio Pool User Stats Hashrate1hr"
+      unique_id: satoshiradio_user_hashrate1hr
+      unit_of_measurement: "GH/s"
+      value_template: "{{ (value_json.hashrate1hr.split('T')[0] | float(0) * 1000) | round(2) }}"
+
+    - name: "Satoshiradio Pool User Stats Hashrate 1d"
+      unique_id: satoshiradio__hashrate1d
+      unit_of_measurement: "GH/s"
+      value_template: "{{ (value_json.hashrate1d.split('T')[0] | float(0) * 1000) | round(2) }}"
+
+    - name: "Satoshiradio Pool User Stats Hashrate 7d"
+      unique_id: satoshiradio__hashrate7d
+      unit_of_measurement: "GH/s"
+      value_template: "{{ (value_json.hashrate7d.split('T')[0] | float(0) * 1000) | round(2) }}"
+
+    - name: "Satoshiradio Pool User Stats Lastshare"
+      unique_id: satoshiradio__lastshare
+      unit_of_measurement: "share"
+      value_template: "{{ value_json.lastshare | int(0) }}"
+
+    - name: "Satoshiradio Pool User Stats Shares"
+      unique_id: satoshiradio__shares
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.shares | int(0) }}"
+
+    - name: "Satoshiradio Pool User Stats Bestshare"
+      unique_id: satoshiradio__bestshare
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.bestshare | float(0) | round(2) }}"
+
+    - name: "Satoshiradio Pool User Stats Bestever"
+      unique_id: satoshiradio__bestever
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.bestever | int(0) }}"
+
+    - name: "Satoshiradio Pool User Stats Authorised"
+      unique_id: satoshiradio__authorised
+      unit_of_measurement: "workers"
+      value_template: "{{ value_json.authorised | int(0) }}"
+
+    - name: "Satoshiradio Pool User Stats Worker Hashrate1d"
+      unique_id: satoshiradio__worker_hashrate1d
+      unit_of_measurement: "GH/s"
+      value_template: "{{ value_json.worker[0].hashrate1d.split('G')[0] | float(0)
+
+# Satoshiradio Pool Stats
+- resource: "https://pool.satoshiradio.nl/api/v1/pool"
+  scan_interval: 30
+  method: GET
+  headers:
+    User-Agent: Home Assistant
+    Accept: application/json
+  sensor:
+    - name: "Satoshiradio Pool Total Hashrate1m"
+      unique_id: satoshiradio_pool_total_hashrate1m
+      unit_of_measurement: "TH/s"
+      value_template: "{{ value_json.hashrate1m.split('T')[0] | float(0) | round(2) }}"
+
+    - name: "Satoshiradio Pool Total Hashrate5m"
+      unique_id: satoshiradio_pool_total_hashrate5m
+      unit_of_measurement: "TH/s"
+      value_template: "{{ value_json.hashrate5m.split('T')[0] | float(0) | round(2) }}"
+
+    - name: "Satoshiradio Pool Total Hashrate1hr"
+      unique_id: satoshiradio_pool_total_hashrate1hr
+      unit_of_measurement: "TH/s"
+      value_template: "{{ value_json.hashrate1hr.split('T')[0] | float(0) | round(2) }}"
+
+    - name: "Satoshiradio Pool Total Hashrate1d"
+      unique_id: satoshiradio_pool_total_hashrate1d
+      unit_of_measurement: "TH/s"
+      value_template: "{{ value_json.hashrate1d.split('T')[0] | float(0) | round(2) }}"
+
+    - name: "Satoshiradio Pool Total Hashrate7d"
+      unique_id: satoshiradio_pool_total_hashrate7d
+      unit_of_measurement: "TH/s"
+      value_template: "{{ value_json.hashrate7d.split('T')[0] | float(0) | round(2) }}"
+
+    - name: "Satoshiradio Pool Users"
+      unique_id: satoshiradio_pool_users
+      unit_of_measurement: "users"
+      value_template: "{{ value_json.Users | int(0) }}"
+
+    - name: "Satoshiradio Pool Workers"
+      unique_id: satoshiradio_pool_workers
+      unit_of_measurement: "workers"
+      value_template: "{{ value_json.Workers | int(0) }}"
+
+    - name: "Satoshiradio Pool Idle Workers"
+      unique_id: satoshiradio_pool_idle_workers
+      unit_of_measurement: "workers"
+      value_template: "{{ value_json.Idle | int(0) }}"
+
+    - name: "Satoshiradio Pool Disconnected Workers"
+      unique_id: satoshiradio_pool_disconnected_workers
+      unit_of_measurement: "workers"
+      value_template: "{{ value_json.Disconnected | int(0) }}"
+
+    - name: "Satoshiradio Pool Difficulty"
+      unique_id: satoshiradio_pool_difficulty
+      value_template: "{{ value_json.diff | float(0) | round(3) }}"
+
+    - name: "Satoshiradio Pool Accepted Shares"
+      unique_id: satoshiradio_pool_accepted_shares
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.accepted | int(0) }}"
+
+    - name: "Satoshiradio Pool Rejected Shares"
+      unique_id: satoshiradio_pool_rejected_shares
+      unit_of_measurement: "shares"
+      value_template: "{{ value_json.rejected | int(0) }}"
+
+    - name: "Satoshiradio Pool Shares Per Second"
+      unique_id: satoshiradio_pool_sps
+      unit_of_measurement: "SPS"
+      value_template: "{{ value_json.SPS1m | int(0) }}"
+
+
