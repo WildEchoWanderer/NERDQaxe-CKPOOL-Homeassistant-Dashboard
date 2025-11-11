@@ -1,4 +1,5 @@
 # NerdQAxe / BitAxe Mining Dashboard — Adapted for your configuration
+<img width="1415" height="683" alt="image" src="https://github.com/user-attachments/assets/27110205-cdb6-4c1c-bbf8-dd5b9852b3db" />
 
 This repository contains an adapted Home Assistant configuration for monitoring BitAxe compatible miners. The files and structure match your local setup:
 
