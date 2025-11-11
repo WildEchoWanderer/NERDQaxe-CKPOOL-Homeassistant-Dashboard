@@ -57,4 +57,5 @@ ckpool_resource: "https://eusolo.ckpool.org/users/bc1q..."
 ---
 Short: main files are `configuration.yaml`, `miner.yaml` and `secrets.yaml`. Put your miner IPs and wallet in `secrets.yaml`, check configuration in HA and restart.
 
-<img width="992" height="992" alt="AxeBTC" src="https://github.com/user-attachments/assets/7760dab0-b33f-4529-aa00-bc3112e1964a" />
+<img width="500" height="500" alt="511863287-7760dab0-b33f-4529-aa00-bc3112e1ass" src="https://github.com/user-attachments/assets/055d02fa-54c1-4216-845d-46bceee9b027" />
+
